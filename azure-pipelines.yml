@@ -1,14 +1,17 @@
-trigger:
-- main
+trigger: none
 
 pool:
-  vmImage: self hosted
+  name: Sandeeplocal
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureCLI@2
+  displayName: "Create Resource Group"
+  inputs:
+    azureSubscription: '797af31e-8795-4440-b043-eb9d24842511'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az group create `
+        --name rg-pipeline-demo `
+        --location westeurope
